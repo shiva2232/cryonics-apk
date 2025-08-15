@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base app theme -->
+
+    <!-- Base app theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Just keep these if you don't have custom colors -->
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:textColorSecondary">#666666</item>
+    </style>
+
+    <!-- Full screen theme for SelectDeviceActivity -->
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Removes status bar -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- Removes title bar -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- Makes background fit system windows -->
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+</resources>

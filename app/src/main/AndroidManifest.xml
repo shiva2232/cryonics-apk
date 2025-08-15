@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+
+
+
+
+    <application
+        android:requiredForAllUsers="true"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Cryonics">
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true"
+            android:showOnLockScreen="true"
+            android:lockTaskMode="if_whitelisted"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- Launcher activity -->
+        <!-- Main page after login, with devices list -->
+        <activity android:name=".MainActivity"
+            android:showOnLockScreen="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:exported="true"
+            android:lockTaskMode="if_whitelisted"/>
+
+        <!-- Activity to select a device (if separate from MainActivity) -->
+        <activity android:name=".SelectDeviceActivity"
+            android:showOnLockScreen="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:exported="true"
+            android:lockTaskMode="if_whitelisted"/>
+
+        <!-- Activity that handles commands for a selected device -->
+        <activity android:name=".DeviceCommandsActivity"
+            android:showOnLockScreen="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:exported="true"
+            android:lockTaskMode="if_whitelisted"  />
+        <service
+            android:name=".CommandService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location|dataSync"
+            tools:ignore="ForegroundServicePermission" />
+
+    </application>
+</manifest>

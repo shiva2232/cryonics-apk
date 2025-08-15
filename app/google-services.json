@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "907895762193",
+    "firebase_url": "https://cryonics-em-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cryonics-em",
+    "storage_bucket": "cryonics-em.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907895762193:android:badabed6601f1a3b9d70b0",
+        "android_client_info": {
+          "package_name": "com.x.cryonics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907895762193-j0eq22gafguk90daht6p3v51vf2lg29g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.x.cryonics",
+            "certificate_hash": "29ee578f908f7186caafd5576c5421a61a06a2ef"
+          }
+        },
+        {
+          "client_id": "907895762193-f6lee024ae9k6fjolvu4ktpc7gmk6o6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtX7-y7DCz7LFk3wWBzwM-OzQp8UX1mK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907895762193-f6lee024ae9k6fjolvu4ktpc7gmk6o6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
